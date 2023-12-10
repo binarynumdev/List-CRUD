@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.style.TextAlign
@@ -35,8 +36,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                   // BirthdayCardPreview()
-                    GreetingImage("Happy Birthday Sam!", "From Emma")
+                    GreetingImage(
+                        message = getString(R.string.happy_birthday_text),
+                        from = getString(R.string.signature_text)
+                    )
                 }
             }
         }
@@ -70,7 +73,9 @@ fun GreetingImage(message : String , from: String) {
     Box {
         Image(
             painter = image,
-            contentDescription = null
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            alpha = 0.5F
         )
         GreetingText(
             message = message,
