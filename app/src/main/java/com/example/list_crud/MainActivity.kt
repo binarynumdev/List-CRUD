@@ -20,6 +20,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -101,7 +105,9 @@ fun DiceRollerApp() {
 fun DiceWithButtonAndImage(modifier: Modifier = Modifier
     .fillMaxSize()
     .wrapContentSize(Alignment.Center)) {
-    var result = 1
+    var result by remember {
+        mutableStateOf(1)
+    }
     val imageResource = when (result) {
         1 -> R.drawable.dice_1
         2 -> R.drawable.dice_2
@@ -115,12 +121,13 @@ fun DiceWithButtonAndImage(modifier: Modifier = Modifier
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(id = imageResource),
+            painter = painterResource(imageResource),
             contentDescription = result.toString()
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = {result = (1..6).random() }) {
-            Text(stringResource(R.string.roll))
+        Button(onClick = {result = (1..6).random() },
+        ) {
+            Text(stringResource(R.string.roll) , fontSize = 24.sp)
         }
     }
 
